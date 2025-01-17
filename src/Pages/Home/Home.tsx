@@ -1,5 +1,4 @@
 import '../../App.css'
-import Header from "../../components/Header/Header.tsx";
 import PopularMoviesCard from "../../components/PopularMoviesCard/PopularMoviesCard.tsx";
 import GenreChange from "../../components/GenreChange/GenreChange.tsx";
 import MovieSection from "../../components/MovieSection/MovieSection.tsx";

@@ -1,10 +1,7 @@
 import "../../App.css"
 import {useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import movie from "../Movie/Movie.tsx";
-import serie from "../Serie/Serie.tsx";
 import MovieCard from "../../components/movieCard/MovieCard.tsx";
-import AllMovies from "../AllMovies/AllMovies.tsx";
 
 const searchMoviesUrl = import.meta.env.VITE_SEARCHMOVIE;
 const searchSeriesUrl = import.meta.env.VITE_SEARCHSERIE;

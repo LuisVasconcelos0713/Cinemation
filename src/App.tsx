@@ -1,4 +1,3 @@
-import Home from "./Pages/Home/Home.tsx";
 import {Outlet} from "react-router-dom";
 import Header from "./components/Header/Header.tsx";
 

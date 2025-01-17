@@ -1,7 +1,6 @@
 import '../../App.css';
 import { FaStar } from "react-icons/fa";
 import {Link} from "react-router-dom";
-import movie from "../../Pages/Movie/Movie.tsx";
 
 const imgUrl = import.meta.env.VITE_IMG;
 

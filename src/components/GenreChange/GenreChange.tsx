@@ -1,5 +1,4 @@
 import "../../App.css"
-import {useState} from "react";
 import { BsFire } from "react-icons/bs";
 import { LuSwords } from "react-icons/lu";
 import { FaHeart } from "react-icons/fa";

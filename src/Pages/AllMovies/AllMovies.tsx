@@ -1,5 +1,4 @@
 import {useMovies} from "../../Usable/GettingMoviesProvider.tsx";
-import MovieCard from "../../components/movieCard/MovieCard.tsx";
 import MovieSection from "../../components/MovieSection/MovieSection.tsx";
 
 const AllMovies = (props) => {
