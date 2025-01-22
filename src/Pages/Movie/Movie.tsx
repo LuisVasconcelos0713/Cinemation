@@ -8,7 +8,7 @@ const movieUrl = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 const imgUrl = import.meta.env.VITE_IMG;
 
-const Movie = (props) => {
+const Movie = () => {
     {/* States and Params*/}
     const [movie, setMovie] = useState(null)
     const {id} = useParams()

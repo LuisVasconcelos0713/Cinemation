@@ -11,12 +11,16 @@ import { FaHandcuffs } from "react-icons/fa6";
 
 
 
-
+interface Igenres {
+    id:number | null,
+    icon: JSX.Element,
+    label:string,
+}
 
 
 const GenreChange = ({genreColector}) => {
 
-    const genres = [
+    const genres: Igenres[] = [
         {id:null, icon: <BsFire className="text-[28px]"/>, label: "Trending"},
         {id:28,icon: <LuSwords className="text-[28px]"/>, label: "Action"},
         {id:10749, icon: <FaHeart className="text-[26px]"/>, label: "Romance"},

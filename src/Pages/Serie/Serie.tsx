@@ -7,7 +7,7 @@ const serieUrl = import.meta.env.VITE_SERIES
 const apiKey = import.meta.env.VITE_API_KEY;
 const imgUrl = import.meta.env.VITE_IMG;
 
-const Serie = (props) => {
+const Serie = () => {
     {/* States and Params*/}
     const [serie, setserie] = useState(null)
     const {id} = useParams()
