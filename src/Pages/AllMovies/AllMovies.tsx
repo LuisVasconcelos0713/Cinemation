@@ -1,7 +1,7 @@
 import {useMovies} from "../../Usable/GettingMoviesProvider.tsx";
 import MovieSection from "../../components/MovieSection/MovieSection.tsx";
 
-const AllMovies = (props) => {
+const AllMovies = () => {
     const {moviesList,genreID,genre} = useMovies()
 
     return (

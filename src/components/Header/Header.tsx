@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useMovies} from "../../Usable/GettingMoviesProvider.tsx";
 import {BiSearchAlt2} from "react-icons/bi";
 import {useState} from "react";
-const Header = (props) => {
+const Header = () => {
 
     const [search, setSearch] = useState("");
     const navigate = useNavigate()
@@ -16,7 +16,7 @@ const Header = (props) => {
         setSearch("")
     }
 
-    const {genre,genreID,setGenre} = useMovies()
+    const {genre,setGenre} = useMovies()
 
     const switchGenreHandleSerie = () => {
         if(genre == 28){

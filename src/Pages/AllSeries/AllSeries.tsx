@@ -1,8 +1,8 @@
 import {useMovies} from "../../Usable/GettingMoviesProvider.tsx";
 import MovieSection from "../../components/MovieSection/MovieSection.tsx";
 
-const AllSeries = (props) => {
-    const {moviesList,genreID,genre,seriesList} = useMovies()
+const AllSeries = () => {
+    const {genreID,genre,seriesList} = useMovies()
 
     return (
         <div className="">
