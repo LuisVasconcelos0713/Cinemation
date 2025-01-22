@@ -6,6 +6,7 @@ import { RiBearSmileFill } from "react-icons/ri";
 import { RiGhostSmileFill } from "react-icons/ri";
 import { LuDrama } from "react-icons/lu";
 import { FaHandcuffs } from "react-icons/fa6";
+import * as React from "react";
 
 
 
@@ -17,8 +18,12 @@ interface Igenres {
     label:string,
 }
 
+interface IgenreColector {
+    genreColector: (id: number | null) => void
+}
 
-const GenreChange = ({genreColector}) => {
+
+const GenreChange: React.FC<IgenreColector> = ({genreColector}) => {
 
     const genres: Igenres[] = [
         {id:null, icon: <BsFire className="text-[28px]"/>, label: "Trending"},

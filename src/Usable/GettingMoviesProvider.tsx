@@ -28,7 +28,7 @@ interface MovieContextType {
     moviesList: Movie[];
     seriesList: Serie[];
     genre: number;
-    genreID: number;
+    genreID: string;
     genreChangeHandler: (genreID: number) => void;
     setGenre: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -124,7 +124,7 @@ const GettingMoviesProvider: React.FC<GettingMoviesProviderProps> = ({ children 
 
     return (
         <movieContext.Provider
-            value={{ moviesList, genreChangeHandler, genre, genreID, seriesList, setGenre }}
+            value={{moviesList, genreChangeHandler, genre, genreID, seriesList, setGenre }}
         >
             {children}
         </movieContext.Provider>

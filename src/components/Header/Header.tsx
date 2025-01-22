@@ -9,7 +9,7 @@ const Header = () => {
     const [search, setSearch] = useState<string>("");
     const navigate = useNavigate()
 
-    const onHandleSubmit = (e:Event) => {
+    const onHandleSubmit = (e) => {
         e.preventDefault();
         if (!search)return
         navigate(`search?q=${search}`)

@@ -33,7 +33,7 @@ const Search = () => {
     const [movies, setMovies] = useState<IMovie[]>([])
     const [series,setSeries] = useState<ISerie[]>([])
     const [searchParams] = useSearchParams()
-    const query:string = searchParams.get("q")
+    const query:string|null = searchParams.get("q")
 
     const minRanting:number = 2.5
 
