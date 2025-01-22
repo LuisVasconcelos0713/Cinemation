@@ -1,22 +1,53 @@
 import '../../App.css';
 import { FaStar } from "react-icons/fa";
 import {Link} from "react-router-dom";
+import movie from "../../Pages/Movie/Movie.tsx";
 
 const imgUrl = import.meta.env.VITE_IMG;
 
-const movieFiltered = (movie) => {
+interface Movie {
+    id: number;
+    title: string;
+    vote_average: number;
+    release_date: string;
+    runtime: number;
+    overview: string;
+    genres: { id: number; name: string }[];
+    poster_path: string;
+    genre_ids:  number[]
+}
+
+interface Serie {
+    id: number;
+    name: string;
+    vote_average: number;
+    first_air_date: string;
+    number_of_seasons: number;
+    number_of_episodes: number;
+    overview: string;
+    genres: { id: number; name: string }[];
+    poster_path: string;
+    genre_ids:  number[]
+}
+
+const movieFiltered = (movie:Movie): string => {
     return movie.release_date.substring(0,4)
 }
 
-const serieFiltered = (serie) => {
+const serieFiltered = (serie:Serie): string => {
     return serie.first_air_date.slice(0,4)
 }
 
+type typeMedia = Movie | Serie
 
-const MovieCard = ({ movie }) => {
+interface movieCardProps {
+    movie: typeMedia
+}
+
+const MovieCard: React.FC<movieCardProps> = ({ movie }) => {
 
     // Validação para garantir que o componente não quebre
-    if (!movie || (!movie.release_date && !movie.first_air_date)) {
+    if (!movie || (!('release_date' in movie) && !('first_air_date' in movie))) {
         console.warn("Dados insuficientes para renderizar o card:", movie);
         return null; // Não renderiza o componente
     }
@@ -44,7 +75,7 @@ const MovieCard = ({ movie }) => {
                 <div className="flex items-start w-full pl-1 gap-2 mt-2 text-sm">
                     <span className="text-yellow-400 font-semibold flex flex-row items-center gap-x-1"><FaStar /> {movie.vote_average.toFixed(1)}</span>
                     <span className="text-gray-400">|</span>
-                    {movie.release_date ? movieFiltered(movie) : serieFiltered(movie)}
+                    {movie.release_date ? movieFiltered(movie as Movie) : serieFiltered(movie as Serie)}
                 </div>
             </div>
         </div>

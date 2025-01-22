@@ -10,6 +10,7 @@ interface Movie {
     overview: string;
     genres: { id: number; name: string }[];
     poster_path: string;
+    genre_ids:  number[]
 }
 
 interface Serie {
@@ -22,13 +23,14 @@ interface Serie {
     overview: string;
     genres: { id: number; name: string }[];
     poster_path: string;
+    genre_ids:  number[]
 }
 
 interface MovieContextType {
     moviesList: Movie[];
     seriesList: Serie[];
     genre: number;
-    genreID: string;
+    genreID: string | null;
     genreChangeHandler: (genreID: number) => void;
     setGenre: React.Dispatch<React.SetStateAction<number>>;
 }

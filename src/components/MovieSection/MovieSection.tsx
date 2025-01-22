@@ -7,14 +7,33 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 interface Movie {
     id: number;
     title: string;
-    genre_ids: number[];
-    // Adicione outros campos conforme necessário
+    vote_average: number;
+    release_date: string;
+    runtime: number;
+    overview: string;
+    genres: { id: number; name: string }[];
+    poster_path: string;
+    genre_ids:  number[]
+}
+
+interface Serie {
+    id: number;
+    name: string;
+    vote_average: number;
+    first_air_date: string;
+    number_of_seasons: number;
+    number_of_episodes: number;
+    overview: string;
+    genres: { id: number; name: string }[];
+    poster_path: string;
+    genre_ids:  number[]
+
 }
 
 // Definir a tipagem para as props do MovieSection
 interface MovieSectionProps {
-    moviesList: Movie[];       // Lista de filmes, tipada como array de objetos Movie
-    genreID: number | null;    // ID do gênero, pode ser número ou null
+    moviesList: Movie[] | Serie[];       // Lista de filmes, tipada como array de objetos Movie
+    genreID: string | null;    // ID do gênero, pode ser número ou null
     genre: number;             // Gênero para filtrar os filmes
     classStyle: string;        // Classe de estilo adicional para o container
 }
