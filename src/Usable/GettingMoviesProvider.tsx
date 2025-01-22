@@ -28,7 +28,7 @@ interface MovieContextType {
     moviesList: Movie[];
     seriesList: Serie[];
     genre: number;
-    genreID: string;
+    genreID: number;
     genreChangeHandler: (genreID: number) => void;
     setGenre: React.Dispatch<React.SetStateAction<number>>;
 }

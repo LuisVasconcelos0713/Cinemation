@@ -21,8 +21,8 @@ interface MovieSectionProps {
 
 const MovieSection: React.FC<MovieSectionProps> = ({ moviesList, genreID, genre, classStyle }) => {
     // Filtrar os filmes baseado no gênero, se gênero for especificado
-    const filteredMovies = genreID
-        ? moviesList.filter((movie) => movie.genre_ids.includes(genre))
+    const filteredMovies:Movie[] = genreID
+        ? moviesList.filter((movie:Movie) => movie.genre_ids.includes(genre))
         : moviesList;
 
     return (
@@ -38,7 +38,7 @@ const MovieSection: React.FC<MovieSectionProps> = ({ moviesList, genreID, genre,
                 </div>
             </div>
             <div className={classStyle}>
-                {filteredMovies.map((movie, index) => (
+                {filteredMovies.map((movie:Movie, index:number) => (
                     <MovieCard key={index} movie={movie} />
                 ))}
             </div>

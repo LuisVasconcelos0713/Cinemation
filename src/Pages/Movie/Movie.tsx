@@ -18,6 +18,7 @@ interface IMovieCast {
 
 interface IMovieDirector {
     name: string;
+    job:string;
 }
 
 interface IMovieData {
@@ -55,7 +56,7 @@ const Movie = () => {
         const res = await fetch(url);
         const data = await res.json();
         const actors = data.cast.slice(0, 4);
-        const directorsList = data.crew.filter((crew) => crew.job === "Director");
+        const directorsList = data.crew.filter((crew:IMovieDirector) => crew.job === "Director");
         setCast(actors);
         setDirector(directorsList);
     };

@@ -6,10 +6,10 @@ import {BiSearchAlt2} from "react-icons/bi";
 import {useState} from "react";
 const Header = () => {
 
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState<string>("");
     const navigate = useNavigate()
 
-    const onHandleSubmit = (e) => {
+    const onHandleSubmit = (e:Event) => {
         e.preventDefault();
         if (!search)return
         navigate(`search?q=${search}`)
@@ -18,7 +18,7 @@ const Header = () => {
 
     const {genre,setGenre} = useMovies()
 
-    const switchGenreHandleSerie = () => {
+    const switchGenreHandleSerie = ():void => {
         if(genre == 28){
             setGenre(10759)
         }
@@ -30,7 +30,7 @@ const Header = () => {
         }
     }
 
-    const switchGenreHandleMovie = () => {
+    const switchGenreHandleMovie = ():void => {
         if(genre == 10759){
             setGenre(28)
         }

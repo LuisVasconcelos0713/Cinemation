@@ -30,7 +30,7 @@ const GenreChange = ({genreColector}) => {
         {id: 80, icon: <FaHandcuffs className="text-[28px]"/>, label: "Crime"}
     ]
 
-    const genreChanger = (genreId) => {
+    const genreChanger = (genreId:number | null) => {
         genreColector(genreId || null); // Se for null, exibe todos os itens
     }
 
@@ -41,7 +41,7 @@ const GenreChange = ({genreColector}) => {
     return(
         <>
             <div className="flex md:flex-row w-auto gap-4 text-WhiteText md:flex-wrap phone:flex-wrap phone:w-full  phone:items-center phone:justify-center">
-                {genres.map((genre) => (
+                {genres.map((genre:Igenres) => (
                     <button
                         key={genre.id ?? "Trending"}
                         className={buttonClass()}
