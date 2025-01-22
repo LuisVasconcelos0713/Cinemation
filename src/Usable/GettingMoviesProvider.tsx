@@ -1,30 +1,45 @@
-import "../App.css"
-import {createContext, useContext, useEffect, useState} from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
-const seriesUrl = import.meta.env.VITE_SERIES
-const  moviesUrl = import.meta.env.VITE_API;
+// Tipos para as respostas da API
+interface Movie {
+    id: number;
+    title: string;
+    vote_average: number;
+    release_date: string;
+    runtime: number;
+    overview: string;
+    genres: { id: number; name: string }[];
+    poster_path: string;
+}
+
+interface Serie {
+    id: number;
+    name: string;
+    vote_average: number;
+    first_air_date: string;
+    number_of_seasons: number;
+    number_of_episodes: number;
+    overview: string;
+    genres: { id: number; name: string }[];
+    poster_path: string;
+}
+
+interface MovieContextType {
+    moviesList: Movie[];
+    seriesList: Serie[];
+    genre: number;
+    genreID: string;
+    genreChangeHandler: (genreID: number) => void;
+    setGenre: React.Dispatch<React.SetStateAction<number>>;
+}
+
+// Constantes e URLs
+const seriesUrl = import.meta.env.VITE_SERIES;
+const moviesUrl = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 
-const tvGenres = {
-    10759: "Ação e Aventura", //ação -
-    16: "Animação", //animação
-    35: "Comédia", //comédia -
-    80: "Crime", //crime
-    99: "Documentário",
-    18: "Drama", //drama
-    10751: "Família",
-    10762: "Infantil",
-    9648: "Mistério", //terror -
-    10763: "Notícias",
-    10764: "Reality",
-    10765: "Ficção científica e Fantasia",
-    10766: "Novela",
-    10767: "Talk Show",
-    10768: "Guerra e Política",
-    37: "Faroeste",
-};
-
-const genres = {
+// Mapeamento de gêneros
+const genres: Record<number, string> = {
     28: "Ação",
     12: "Aventura",
     16: "Animação",
@@ -46,72 +61,74 @@ const genres = {
     37: "Faroeste",
 };
 
-const movieContext = createContext();
-export const useMovies = () => useContext(movieContext)
+const movieContext = createContext<MovieContextType | undefined>(undefined);
 
-const GettingMoviesProvider = ({children}) => {
-    {/* States */}
-    const [moviesList, setMoviesList] = useState([])
-    const [seriesList,setSeriesList] = useState([])
+export const useMovies = (): MovieContextType => {
+    const context = useContext(movieContext);
+    if (!context) {
+        throw new Error("useMovies must be used within a GettingMoviesProvider");
+    }
+    return context;
+};
 
-    {/* Fetch */}
+interface GettingMoviesProviderProps {
+    children: ReactNode;
+}
+
+const GettingMoviesProvider: React.FC<GettingMoviesProviderProps> = ({ children }) => {
+    const [moviesList, setMoviesList] = useState<Movie[]>([]);
+    const [seriesList, setSeriesList] = useState<Serie[]>([]);
+    const [genre, setGenre] = useState<number>(12);
+    const [genreID, setGenreID] = useState<string>("");
+
+    // Função para buscar filmes
     const getMovies = async () => {
-        let AllMovies = []
-        for (let page = 1; page <= 33; page++){
-            const res = await fetch(`${moviesUrl}popular?${apiKey}&language=pt-BR&page=${page}`)
-            const data = await res.json()
-            AllMovies = [...AllMovies,...data.results]
+        let AllMovies: Movie[] = [];
+        for (let page = 1; page <= 33; page++) {
+            const res = await fetch(`${moviesUrl}popular?${apiKey}&language=pt-BR&page=${page}`);
+            const data = await res.json();
+            AllMovies = [...AllMovies, ...data.results];
         }
-        setMoviesList(AllMovies)
-    }
+        setMoviesList(AllMovies);
+    };
 
-    const getSeries = async() => {
-        let AllSeries = []
-        for (let page = 1; page <= 33; page++){
-            const res = await fetch(`${seriesUrl}popular?${apiKey}&language=pt-BR&page=${page}`)
-            const data = await res.json()
-            AllSeries = [...AllSeries, ...data.results]
+    // Função para buscar séries
+    const getSeries = async () => {
+        let AllSeries: Serie[] = [];
+        for (let page = 1; page <= 33; page++) {
+            const res = await fetch(`${seriesUrl}popular?${apiKey}&language=pt-BR&page=${page}`);
+            const data = await res.json();
+            AllSeries = [...AllSeries, ...data.results];
         }
-        setSeriesList(AllSeries)
-    }
+        setSeriesList(AllSeries);
+    };
+
+    // Função para converter o gênero
+    const genreConvertor = (genreID: number) => {
+        if (!genres[genreID]) {
+            console.log("teste");
+        }
+        const genre = genres[genreID];
+        setGenreID(genre);
+    };
 
     useEffect(() => {
-        getMovies()
-        getSeries()
+        getMovies();
+        getSeries();
     }, []);
 
-    {/* Getting Genres */}
-
-    const [genre, setGenre] = useState(12)
-
-    const genreChangeHandler =  (genreID) => {
-        setGenre(genreID)
-        genreConvertor(genreID)
-    }
-
-    {/* Converting Genres */}
-
-    const mappingGenre = {
-        28: 10759, // Ação -> Ação e Aventura
-        10749: 35, // Romance -> Comédia
-        27: 9648, // Terror -> Mistério
-        878: 10765, // Ficção científica -> Ficção científica e Fantasia
-    }
-
-    const [genreID , setGenreID] = useState("")
-
-    const genreConvertor = (genreID) => {
-        if (!genres[genreID])
-        {console.log("teste")}
-        const genre = genres[genreID]
-        setGenreID(genre)
-    }
+    const genreChangeHandler = (genreID: number) => {
+        setGenre(genreID);
+        genreConvertor(genreID);
+    };
 
     return (
-        <movieContext.Provider value={{moviesList, genreChangeHandler, genre, genreID,seriesList,setGenre}}>
+        <movieContext.Provider
+            value={{ moviesList, genreChangeHandler, genre, genreID, seriesList, setGenre }}
+        >
             {children}
         </movieContext.Provider>
     );
-}
+};
 
 export default GettingMoviesProvider;
