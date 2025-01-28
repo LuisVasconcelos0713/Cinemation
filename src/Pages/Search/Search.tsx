@@ -34,8 +34,8 @@ interface ISerie {
 type typeMedia = IMovie | ISerie
 
 const Search = () => {
-    const [movies, setMovies] = useState([])
-    const [series,setSeries] = useState([])
+    const [movies, setMovies] = useState<IMovie[]>([])
+    const [series,setSeries] = useState<ISerie[]>([])
     const [searchParams] = useSearchParams()
     const query = searchParams.get("q")
 

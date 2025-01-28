@@ -107,7 +107,7 @@ const GettingMoviesProvider: React.FC<GettingMoviesProviderProps> = ({ children 
     };
 
     // Função para converter o gênero
-    const genreConvertor = (genreID: number) => {
+    const genreConvertor = (genreID: number | null) => {
         if (!genres[genreID]) {
             console.log("teste");
         }
@@ -120,7 +120,7 @@ const GettingMoviesProvider: React.FC<GettingMoviesProviderProps> = ({ children 
         getSeries();
     }, []);
 
-    const genreChangeHandler = (genreID: number) => {
+    const genreChangeHandler = (genreID: number | null) => {
         setGenre(genreID);
         genreConvertor(genreID);
     };

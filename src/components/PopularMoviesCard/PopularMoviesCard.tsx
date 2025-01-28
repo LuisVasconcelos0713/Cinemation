@@ -2,8 +2,18 @@ import "../../App.css"
 
 const imgUrl = import.meta.env.VITE_IMG;
 
+interface movieCardProps {
+    id: number;
+    title: string;
+    backdrop_path: string;
+}
 
-const PopularMoviesCard = ({movieCardSmall, movieCardLarge}) => {
+interface PopularMoviesCardProps {
+    movieCardSmall: movieCardProps;
+    movieCardLarge: movieCardProps;
+}
+
+const PopularMoviesCard = ({movieCardSmall, movieCardLarge}: PopularMoviesCardProps) => {
     return (
         <div className="md:w-[1580px] phone:w-[380px] md:block phone:hidden">
             <div className="flex flex-row mb-10 gap-x-4">
