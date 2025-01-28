@@ -30,7 +30,7 @@ interface MovieContextType {
     moviesList: Movie[];
     seriesList: Serie[];
     genre: number;
-    genreID: string | null;
+    genreID: string | null | number;
     genreChangeHandler: (genreID: number) => void;
     setGenre: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -81,7 +81,8 @@ const GettingMoviesProvider: React.FC<GettingMoviesProviderProps> = ({ children 
     const [moviesList, setMoviesList] = useState<Movie[]>([]);
     const [seriesList, setSeriesList] = useState<Serie[]>([]);
     const [genre, setGenre] = useState<number>(12);
-    const [genreID, setGenreID] = useState<string>("");
+    const [genreID, setGenreID] = useState<string | null | number>("");
+
 
     // Função para buscar filmes
     const getMovies = async () => {

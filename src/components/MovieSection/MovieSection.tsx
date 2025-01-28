@@ -4,45 +4,47 @@ import { Link } from "react-router-dom";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 // Definir a interface para a prop movie (caso você já tenha uma interface para os filmes)
-interface Movie {
+
+interface Media {
     id: number;
-    title: string;
     vote_average: number;
-    release_date: string;
-    runtime: number;
-    overview: string;
-    genres: { id: number; name: string }[];
+    genre_ids: number[];
     poster_path: string;
-    genre_ids:  number[]
+    overview: string;
 }
 
-interface Serie {
-    id: number;
+interface Movie extends Media {
+    title: string;
+    release_date: string;
+    runtime: number;
+}
+
+interface Serie extends Media {
     name: string;
-    vote_average: number;
     first_air_date: string;
     number_of_seasons: number;
     number_of_episodes: number;
-    overview: string;
-    genres: { id: number; name: string }[];
-    poster_path: string;
-    genre_ids:  number[]
-
 }
 
 // Definir a tipagem para as props do MovieSection
 interface MovieSectionProps {
-    moviesList: Movie[] | Serie[];       // Lista de filmes, tipada como array de objetos Movie
-    genreID: string | null;    // ID do gênero, pode ser número ou null
+    moviesList: Media[];       // Lista de filmes, tipada como array de objetos Movie
+    genreID: string | number;    // ID do gênero, pode ser número ou null
     genre: number;             // Gênero para filtrar os filmes
     classStyle: string;        // Classe de estilo adicional para o container
 }
 
+type typeMedia = Movie | Serie;
+
+
 const MovieSection: React.FC<MovieSectionProps> = ({ moviesList, genreID, genre, classStyle }) => {
+
     // Filtrar os filmes baseado no gênero, se gênero for especificado
-    const filteredMovies:Movie[] = genreID
-        ? moviesList.filter((movie:Movie) => movie.genre_ids.includes(genre))
-        : moviesList;
+    const filteredMovies: typeMedia[] = genreID
+        ? moviesList.filter((media): media is typeMedia => {
+            return ("title" in media || "name" in media) && media.genre_ids.includes(genre);
+        })
+        : moviesList.filter((media): media is typeMedia => "title" in media || "name" in media);
 
     return (
         <div className="">
@@ -57,8 +59,8 @@ const MovieSection: React.FC<MovieSectionProps> = ({ moviesList, genreID, genre,
                 </div>
             </div>
             <div className={classStyle}>
-                {filteredMovies.map((movie:Movie, index:number) => (
-                    <MovieCard key={index} movie={movie} />
+                {filteredMovies.map((media:typeMedia, index:number) => (
+                    <MovieCard key={index} movie={media} />
                 ))}
             </div>
         </div>
