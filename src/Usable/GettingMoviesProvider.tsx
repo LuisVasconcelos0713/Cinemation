@@ -10,7 +10,8 @@ interface Movie {
     overview: string;
     genres: { id: number; name: string }[];
     poster_path: string;
-    genre_ids:  number[]
+    genre_ids: number[];
+    backdrop_path: string;
 }
 
 interface Serie {
@@ -23,7 +24,8 @@ interface Serie {
     overview: string;
     genres: { id: number; name: string }[];
     poster_path: string;
-    genre_ids:  number[]
+    genre_ids: number[];
+    backdrop_path: string;
 }
 
 interface MovieContextType {
@@ -83,7 +85,6 @@ const GettingMoviesProvider: React.FC<GettingMoviesProviderProps> = ({ children 
     const [genre, setGenre] = useState<number>(12);
     const [genreID, setGenreID] = useState<string | null | number>("");
 
-
     // Função para buscar filmes
     const getMovies = async () => {
         let AllMovies: Movie[] = [];
@@ -108,10 +109,10 @@ const GettingMoviesProvider: React.FC<GettingMoviesProviderProps> = ({ children 
 
     // Função para converter o gênero
     const genreConvertor = (genreID: number | null) => {
-        if (!genres[genreID]) {
-            console.log("teste");
+        if (genreID !== null && !genres[genreID]) {
+            console.log("Gênero não encontrado:", genreID);
         }
-        const genre = genres[genreID];
+        const genre = genreID !== null ? genres[genreID] : "";
         setGenreID(genre);
     };
 
@@ -121,13 +122,13 @@ const GettingMoviesProvider: React.FC<GettingMoviesProviderProps> = ({ children 
     }, []);
 
     const genreChangeHandler = (genreID: number | null) => {
-        setGenre(genreID);
+        setGenre(genreID || 12); // Define um valor padrão (12) se genreID for null
         genreConvertor(genreID);
     };
 
     return (
         <movieContext.Provider
-            value={{moviesList, genreChangeHandler, genre, genreID, seriesList, setGenre }}
+            value={{ moviesList, seriesList, genre, genreID, genreChangeHandler, setGenre }}
         >
             {children}
         </movieContext.Provider>
