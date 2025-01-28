@@ -1,4 +1,5 @@
 import "../../App.css"
+import {FaStar} from "react-icons/fa";
 
 const imgUrl = import.meta.env.VITE_IMG;
 
@@ -23,15 +24,20 @@ const PopularMoviesCard = ({movieCardSmall, movieCardLarge}: PopularMoviesCardPr
                         alt={`Poster do filme ${movieCardSmall.title}`}
                         className="rounded-3xl w-full h-full object-cover shadow-2xl"
                     />
-                    <h1 className="absolute top-[330px] text-WhiteText font-bold text-3xl ml-3">{movieCardSmall.title}</h1>
+                    <div
+                        className="flex flex-row mb-10 gap-x-4 absolute top-[330px] text-WhiteText font-bold text-3xl ml-3">
+                        <h1 className="">{movieCardSmall.title}</h1>
+                    </div>
                 </div>
                 <div className="w-4/6 h-[300px] bg-blue-800 rounded-3xl">
-                    <img
+                <img
                         src={imgUrl + movieCardLarge.backdrop_path}
                         alt={`Poster do filme ${movieCardLarge.title}`}
                         className="rounded-3xl w-full h-full object-cover shadow-2xl"
                     />
-                    <h1 className="absolute top-[330px] text-WhiteText font-bold text-3xl ml-3">{movieCardLarge.title}</h1>
+                    <div className="flex flex-row mb-10 gap-x-4 absolute top-[330px] text-WhiteText font-bold text-3xl ml-3">
+                        <h1 className="">{movieCardLarge.title}</h1>
+                    </div>
                 </div>
             </div>
         </div>
