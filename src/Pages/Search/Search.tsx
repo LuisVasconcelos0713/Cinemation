@@ -30,10 +30,10 @@ interface ISerie {
 }
 
 const Search = () => {
-    const [movies, setMovies] = useState<IMovie[]>([])
-    const [series,setSeries] = useState<ISerie[]>([])
+    const [movies, setMovies] = useState([])
+    const [series,setSeries] = useState([])
     const [searchParams] = useSearchParams()
-    const query:string|null = searchParams.get("q")
+    const query = searchParams.get("q")
 
     const minRanting:number = 2.5
 
@@ -52,11 +52,13 @@ const Search = () => {
     }
 
     useEffect(() => {
-        const movieUrl:string = `${searchMoviesUrl}?${apiKey}&query=${query}&language=pt-BR`
-        const serieUrl:string = `${searchSeriesUrl}?${apiKey}&query=${query}&language=pt-BR`
-        getMovies(movieUrl)
-        getSeries(serieUrl)
+        const encodedQuery = encodeURIComponent(query || "");  // Codificando a query
+        const movieUrl = `${searchMoviesUrl}?${apiKey}&query=${encodedQuery}&language=pt-BR`;
+        const serieUrl = `${searchSeriesUrl}?${apiKey}&query=${encodedQuery}&language=pt-BR`;
+        getMovies(movieUrl);
+        getSeries(serieUrl);
     }, [query]);
+
 
     const allTitles:(IMovie | ISerie)[] = [...movies, ...series].sort((a,b) => b.vote_average - a.vote_average)
 
@@ -66,7 +68,7 @@ const Search = () => {
                 <h1 className="text-4xl font-semibold m-5 md:flex md:flex-row md:gap-3 phone:flex phone:flex-col items-center">Searched <strong className="text-yellow-400">{query}</strong></h1>
             </div>
             <div className="flex flex-row flex-wrap phone:justify-center phone:items:center mt-9">
-                {allTitles.map((movie:IMovie|ISerie) => (
+                {allTitles.map((movie) => (
                     <MovieCard movie={movie}></MovieCard>
                 ))}
             </div>

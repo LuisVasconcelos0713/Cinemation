@@ -10,7 +10,7 @@ const Home = () => {
 
     return (
         <>
-            {moviesList.length > 0 &&
+            {moviesList.length > 0 ?
                 <div className="">
                     <div className="md:mt-0 flex justify-center items-baseline phone:mt-[12px]">
                         <div className="flex items-center justify-between p-3 flex-col md:max-w-[1800px] phone:max-w-[375px] overflow-hidden">
@@ -27,7 +27,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            }
+            : <h1>carregando...</h1>}
         </>
 
     )

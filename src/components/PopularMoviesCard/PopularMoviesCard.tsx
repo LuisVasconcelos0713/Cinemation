@@ -13,6 +13,7 @@ const PopularMoviesCard = ({movieCardSmall, movieCardLarge}) => {
                         alt={`Poster do filme ${movieCardSmall.title}`}
                         className="rounded-3xl w-full h-full object-cover shadow-2xl"
                     />
+                    <h1 className="absolute top-[330px] text-WhiteText font-bold text-3xl ml-3">{movieCardSmall.title}</h1>
                 </div>
                 <div className="w-4/6 h-[300px] bg-blue-800 rounded-3xl">
                     <img
@@ -20,6 +21,7 @@ const PopularMoviesCard = ({movieCardSmall, movieCardLarge}) => {
                         alt={`Poster do filme ${movieCardLarge.title}`}
                         className="rounded-3xl w-full h-full object-cover shadow-2xl"
                     />
+                    <h1 className="absolute top-[330px] text-WhiteText font-bold text-3xl ml-3">{movieCardLarge.title}</h1>
                 </div>
             </div>
         </div>
