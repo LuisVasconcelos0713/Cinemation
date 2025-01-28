@@ -2,6 +2,7 @@ import "../../App.css"
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {FaStar} from "react-icons/fa";
+import Loading from "../../components/Loading/Loading.tsx";
 
 const movieUrl = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -143,7 +144,7 @@ const Movie = () => {
                     </div>
                 </div>
             ) : (
-                <p>Carregando...</p>
+                <Loading></Loading>
             )}
         </div>
     );

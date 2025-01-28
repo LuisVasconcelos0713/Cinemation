@@ -3,6 +3,7 @@ import PopularMoviesCard from "../../components/PopularMoviesCard/PopularMoviesC
 import GenreChange from "../../components/GenreChange/GenreChange.tsx";
 import MovieSection from "../../components/MovieSection/MovieSection.tsx";
 import {useMovies} from "../../Usable/GettingMoviesProvider.tsx";
+import Loading from "../../components/Loading/Loading.tsx";
 
 
 const Home = () => {
@@ -27,7 +28,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            : <h1>carregando...</h1>}
+                : <Loading></Loading>}
         </>
 
     )

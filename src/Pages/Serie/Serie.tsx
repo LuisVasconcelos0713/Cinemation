@@ -2,6 +2,7 @@ import "../../App.css"
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {FaStar} from "react-icons/fa";
+import Loading from "../../components/Loading/Loading.tsx";
 
 const serieUrl = import.meta.env.VITE_SERIES
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -170,7 +171,7 @@ const Serie = () => {
                     </div>
                 </div>
             ) : (
-                <p>Carregando...</p>
+                <Loading></Loading>
             )}
         </div>
     );

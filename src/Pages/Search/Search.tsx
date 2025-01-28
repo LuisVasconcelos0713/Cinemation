@@ -2,6 +2,7 @@ import "../../App.css"
 import {useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import MovieCard from "../../components/movieCard/MovieCard.tsx";
+import Loading from "../../components/Loading/Loading.tsx";
 
 const searchMoviesUrl = import.meta.env.VITE_SEARCHMOVIE;
 const searchSeriesUrl = import.meta.env.VITE_SEARCHSERIE;
@@ -72,9 +73,12 @@ const Search = () => {
                 <h1 className="text-4xl font-semibold m-5 md:flex md:flex-row md:gap-3 phone:flex phone:flex-col items-center">Searched <strong className="text-yellow-400">{query}</strong></h1>
             </div>
             <div className="flex flex-row flex-wrap phone:justify-center phone:items:center mt-9">
-                {allTitles.map((movie:typeMedia) => (
+                { allTitles.length > 0 ?
+                    allTitles.map((movie:typeMedia) => (
                     <MovieCard movie={movie}></MovieCard>
-                ))}
+                ))
+                : <Loading></Loading>
+                }
             </div>
         </>
     );
