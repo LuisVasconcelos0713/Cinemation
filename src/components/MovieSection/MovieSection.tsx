@@ -10,6 +10,7 @@ interface Media {
     vote_average: number;
     genre_ids: number[];
     poster_path: string;
+    genres: { id: number; name: string }[];
     overview: string;
 }
 
@@ -17,6 +18,7 @@ interface Movie extends Media {
     title: string;
     release_date: string;
     runtime: number;
+    genre_ids: number[];
 }
 
 interface Serie extends Media {
@@ -24,12 +26,13 @@ interface Serie extends Media {
     first_air_date: string;
     number_of_seasons: number;
     number_of_episodes: number;
+    genre_ids: number[];
 }
 
 // Definir a tipagem para as props do MovieSection
 interface MovieSectionProps {
     moviesList: Media[];       // Lista de filmes, tipada como array de objetos Movie
-    genreID: string | number;    // ID do gênero, pode ser número ou null
+    genreID: string | number | null;    // ID do gênero, pode ser número ou null
     genre: number;             // Gênero para filtrar os filmes
     classStyle: string;        // Classe de estilo adicional para o container
 }

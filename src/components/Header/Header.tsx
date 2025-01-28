@@ -9,7 +9,7 @@ const Header = () => {
     const [search, setSearch] = useState<string>("");
     const navigate = useNavigate()
 
-    const onHandleSubmit = (e) => {
+    const onHandleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (!search)return
         navigate(`search?q=${search}`)

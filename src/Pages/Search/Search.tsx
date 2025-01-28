@@ -15,6 +15,7 @@ interface IMovie {
     overview: string;
     genres: { id: number; name: string }[];
     poster_path: string;
+    genre_ids: number[];
 }
 
 interface ISerie {
@@ -27,7 +28,10 @@ interface ISerie {
     overview: string;
     genres: { id: number; name: string }[];
     poster_path: string;
+    genre_ids: number[];
 }
+
+type typeMedia = IMovie | ISerie
 
 const Search = () => {
     const [movies, setMovies] = useState([])
@@ -40,14 +44,14 @@ const Search = () => {
     const getMovies = async (url:string) => {
         const res = await fetch(url)
         const data = await res.json()
-        const filteredMovies = data.results.filter((movie) => movie.vote_average >= minRanting)
+        const filteredMovies = data.results.filter((movie:IMovie) => movie.vote_average >= minRanting)
         setMovies(filteredMovies)
     }
 
     const getSeries = async (url:string) => {
         const res = await fetch(url)
         const data = await res.json()
-        const filteredSeries = data.results.filter((serie) => serie.vote_average >= minRanting)
+        const filteredSeries = data.results.filter((serie:ISerie) => serie.vote_average >= minRanting)
         setSeries(filteredSeries)
     }
 
@@ -60,7 +64,7 @@ const Search = () => {
     }, [query]);
 
 
-    const allTitles:(IMovie | ISerie)[] = [...movies, ...series].sort((a,b) => b.vote_average - a.vote_average)
+    const allTitles:typeMedia[] = [...movies, ...series].sort((a,b) => b.vote_average - a.vote_average)
 
     return (
         <>
@@ -68,7 +72,7 @@ const Search = () => {
                 <h1 className="text-4xl font-semibold m-5 md:flex md:flex-row md:gap-3 phone:flex phone:flex-col items-center">Searched <strong className="text-yellow-400">{query}</strong></h1>
             </div>
             <div className="flex flex-row flex-wrap phone:justify-center phone:items:center mt-9">
-                {allTitles.map((movie) => (
+                {allTitles.map((movie:typeMedia) => (
                     <MovieCard movie={movie}></MovieCard>
                 ))}
             </div>
